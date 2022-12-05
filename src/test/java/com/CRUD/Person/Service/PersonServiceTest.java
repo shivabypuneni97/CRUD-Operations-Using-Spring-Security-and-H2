@@ -4,14 +4,10 @@ import com.CRUD.Person.Entity.EntityClass;
 import com.CRUD.Person.Repository.PersonRepository;
 import com.CRUD.Person.Service.Impl.PersonServiceImpl;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -34,14 +30,14 @@ public class PersonServiceTest {
 
     @Test
     public void testAddPerson() throws Exception{
-        EntityClass entityClass = new EntityClass(1L,"shiva","krishna","sivakrishna@gmail.com","Leicester,UK");
+        EntityClass entityClass = new EntityClass(1L,"shiva","krishna","sivakrishna@gmail.com","Leicester,UK", 7894561230L);
         when(personRepository.save(any())).thenReturn(entityClass);
         EntityClass createdPerson = personService.createPerson(entityClass);
         assertEquals("shiva", createdPerson.getFirstname());
     }
     @Test
     public void testGetPersonById() throws Exception{
-        EntityClass entityClass = new EntityClass(1L,"shiva","krishna","sivakrishna@gmail.com","Leicester,UK");
+        EntityClass entityClass = new EntityClass(1L,"shiva","krishna","sivakrishna@gmail.com","Leicester,UK", 7894561230L);
         when(personRepository.findById(any())).thenReturn(Optional.of(entityClass));
         EntityClass returnedPerson = personService.getPersonById(1L);
         assertEquals("shiva", returnedPerson.getFirstname());
@@ -50,7 +46,7 @@ public class PersonServiceTest {
     @Test
     public void testGetAllPersons() throws Exception{
         List<EntityClass> entityClassList = new ArrayList<>();
-        EntityClass entityClass = new EntityClass(1L,"shiva","krishna","sivakrishna@gmail.com","Leicester,UK");
+        EntityClass entityClass = new EntityClass(1L,"shiva","krishna","sivakrishna@gmail.com","Leicester,UK", 7894561230L);
         entityClassList.add(entityClass);
         when(personRepository.findAll()).thenReturn(entityClassList);
         List<EntityClass> returnedPerson = personService.getAllPersons();
@@ -59,7 +55,7 @@ public class PersonServiceTest {
 
     @Test
     public void testUpdateEntityClass() throws Exception{
-        EntityClass entityClass = new EntityClass(1L,"shiva","krishna","sivakrishna@gmail.com","Leicester,UK");
+        EntityClass entityClass = new EntityClass(1L,"shiva","krishna","sivakrishna@gmail.com","Leicester,UK", 7894561230L);
         when(personRepository.save(any())).thenReturn(entityClass);
         EntityClass returnedPerson = personService.updateEntityClass(entityClass);
         assertEquals("shiva", returnedPerson.getFirstname());
@@ -67,7 +63,7 @@ public class PersonServiceTest {
 
     @Test
     public void testDeletePersonById() throws Exception{
-        EntityClass entityClass = new EntityClass(1L,"shiva","krishna","sivakrishna@gmail.com","Leicester,UK");
+        EntityClass entityClass = new EntityClass(1L,"shiva","krishna","sivakrishna@gmail.com","Leicester,UK", 7894561230L);
         personService.deletePersonById(1L);
         verify(personRepository,times(1)).deleteById(1L);
     }
